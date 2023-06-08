@@ -2,7 +2,6 @@ const page = () => {
   return (
     <>
       <main className="container mx-auto">
-        <h1>About</h1>
         <section>
           <h2>Story</h2>
           <h3>1. how I begun</h3>

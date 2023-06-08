@@ -1,29 +1,42 @@
-import { BlogPost, PostPage } from "@/@types/schema";
+import {
+  DevPost,
+  DevPostPage,
+  PersonalPost,
+  PersonalPostPage,
+} from "@/types/schema";
 import { Client } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
 import { MdBlock } from "notion-to-md/build/types";
-import slugify from "slugify";
+import { DevDb, PersonalDb } from "./constants";
 
 export default class NotionService {
-  client: Client;
-  notionToMarkdown: NotionToMarkdown;
+  private client: Client;
+  private n2m: NotionToMarkdown;
 
   constructor() {
     this.client = new Client({ auth: process.env.NOTION_ACCESS_TOKEN });
-    this.notionToMarkdown = new NotionToMarkdown({ notionClient: this.client });
+    this.n2m = new NotionToMarkdown({ notionClient: this.client });
   }
 
-  async getPublishedBlogPost(): Promise<BlogPost[]> {
-    const db = process.env.NOTION_BLOG_DB_ID ?? "";
-
+  async findPublishedDevPosts(category: string): Promise<DevPost[]> {
     // list blog posts
     const response = await this.client.databases.query({
-      database_id: db,
+      database_id: DevDb,
       filter: {
-        property: "Published",
-        checkbox: {
-          equals: true,
-        },
+        and: [
+          {
+            property: "Published",
+            checkbox: {
+              equals: true,
+            },
+          },
+          {
+            property: "Category",
+            select: {
+              equals: category,
+            },
+          },
+        ],
       },
       sorts: [
         {
@@ -34,17 +47,14 @@ export default class NotionService {
     });
 
     return response.results.map((res) => {
-      return NotionService.pageToPostTransformer(res);
+      return NotionService.convertToDevPost(res);
     });
   }
 
-  async getSingleBlogPost(slug: string): Promise<PostPage> {
-    let post, markdown;
-    const db = process.env.NOTION_BLOG_DB_ID ?? "";
-
-    // list of blog posts
+  async findOneDevPost(slug: string): Promise<DevPostPage> {
+    // fetch list of blog posts
     const response = await this.client.databases.query({
-      database_id: db,
+      database_id: DevDb,
       filter: {
         property: "Slug",
         formula: {
@@ -55,32 +65,88 @@ export default class NotionService {
       },
     });
 
-    if (!response.results[0]) {
+    // handle error: 404
+    const result = response.results[0];
+    const throwError = () => {
       throw "No results available";
-    }
+    };
+    const page = result ?? throwError();
 
-    // grab page from notion
-    const page = response.results[0];
-
-    const mdBlocks: MdBlock[] = await this.notionToMarkdown.pageToMarkdown(
-      page.id
-    );
-    markdown = this.notionToMarkdown.toMarkdownString(mdBlocks);
-    post = NotionService.pageToPostTransformer(page);
+    // convert notion to Markdown
+    const mdBlocks: MdBlock[] = await this.n2m.pageToMarkdown(page.id);
+    const mdString = this.n2m.toMarkdownString(mdBlocks);
+    const convertedData = NotionService.convertToDevPost(page);
 
     return {
-      post,
-      markdown,
+      post: convertedData,
+      markdown: mdString.parent,
     };
   }
 
-  private static pageToPostTransformer(page: any): BlogPost {
+  async findPublishedPersonalPosts(): Promise<PersonalPostPage[]> {
+    // list blog posts
+    const response = await this.client.databases.query({
+      database_id: PersonalDb,
+      filter: {
+        and: [
+          {
+            property: "Published",
+            checkbox: {
+              equals: true,
+            },
+          },
+        ],
+      },
+      sorts: [
+        {
+          property: "Created",
+          direction: "ascending",
+        },
+      ],
+    });
+
+    // handle error: 404
+    const throwError = () => {
+      throw "No results available";
+    };
+    const pages = response.results.length > 0 ? response.results : throwError();
+
+    let results: PersonalPostPage[] = [];
+    for (const p of pages) {
+      const mdBlocks: MdBlock[] = await this.n2m.pageToMarkdown(p.id);
+      const mdString = this.n2m.toMarkdownString(mdBlocks);
+      const convertedData = NotionService.convertToPersonalPost(p);
+      results.push({ post: convertedData, markdown: mdString.parent });
+    }
+
+    return results;
+  }
+
+  private static convertToPersonalPost(page: any): PersonalPost {
     let cover = page.cover;
     cover =
       cover?.type == "file"
-        ? page.cover.file
+        ? cover.file
         : cover?.type == "external"
-        ? page.cover.external.url
+        ? cover.external.url
+        : "";
+
+    return {
+      id: page.id,
+      cover: cover,
+      title: page.properties.Title.title[0].plain_text,
+      description: page.properties.Description.rich_text[0]?.text.content ?? "",
+      date: page.properties.Updated.last_edited_time,
+    };
+  }
+
+  private static convertToDevPost(page: any): DevPost {
+    let cover = page.cover;
+    cover =
+      cover?.type == "file"
+        ? cover.file
+        : cover?.type == "external"
+        ? cover.external.url
         : "";
 
     return {
