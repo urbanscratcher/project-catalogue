@@ -16,8 +16,8 @@ const page = () => {
             As I worked on the project, I soon realized that the DOS system was
             incredibly inefficient. Everyone, including the staff and new team
             members, constantly complained about its drawbacks. Even though I
-            wasn't an expert in data structures, being a social scientist and
-            urban planner involved in quantitative analysis with various
+            wasn&apos;t an expert in data structures, being a social scientist
+            and urban planner involved in quantitative analysis with various
             datasets, I had a basic understanding of relational databases.
             Through some reverse-engineering, I figured out the structure of the
             data stored in the dbf files and discovered that Microsoft Access
@@ -27,21 +27,22 @@ const page = () => {
             system.
           </p>
           <p>
-            No compensation was requested since the project wasn't officially
-            planned. There was no guarantee of its success, just a strong desire
-            to make it happen. Once my boss gave me the green light, I started
-            by compiling a list of existing functionalities and actively sought
-            input from people on what should be added or removed. This marked my
-            first foray into discussing user requirements! I taught myself how
-            to use Microsoft Access to create forms for CRUD operations, queries
-            to extract and display data, and implemented features for printing,
-            descriptive statistics, and searching. I felt like a master of MS
-            Access at that point. Throughout the development process, I worked
-            closely with the actual users, receiving daily feedback on various
-            functionalities and the user interface. After a month of intense
-            work, I successfully migrated the data and launched the MS Access
-            program I had built. The program continued to serve its purpose for
-            five years until an official program was adopted.
+            No compensation was requested since the project wasn&apos;t
+            officially planned. There was no guarantee of its success, just a
+            strong desire to make it happen. Once my boss gave me the green
+            light, I started by compiling a list of existing functionalities and
+            actively sought input from people on what should be added or
+            removed. This marked my first foray into discussing user
+            requirements! I taught myself how to use Microsoft Access to create
+            forms for CRUD operations, queries to extract and display data, and
+            implemented features for printing, descriptive statistics, and
+            searching. I felt like a master of MS Access at that point.
+            Throughout the development process, I worked closely with the actual
+            users, receiving daily feedback on various functionalities and the
+            user interface. After a month of intense work, I successfully
+            migrated the data and launched the MS Access program I had built.
+            The program continued to serve its purpose for five years until an
+            official program was adopted.
           </p>
           <p>
             Looking back, this experience laid a strong foundation for my
@@ -49,15 +50,15 @@ const page = () => {
             coding involved, except for some SQL-like statements. Thanks to MS
             Access, the process of writing those statements was made easy. What
             astonishes me the most is that I went through all the steps without
-            any knowledge of software engineering concepts. It's incredible to
-            think that even as a novice, as long as one can think logically and
-            has a genuine desire to simplify people's lives, they can build
-            something remarkable.
+            any knowledge of software engineering concepts. It&apos;s incredible
+            to think that even as a novice, as long as one can think logically
+            and has a genuine desire to simplify people&apos;s lives, they can
+            build something remarkable.
           </p>
           <h3>2. how I used to the actual coding</h3>
           <p>
             After that experience, I decided to further my academic journey and
-            pursued a Master's degree in Urban Planning at Iowa State
+            pursued a Master&apos;s degree in Urban Planning at Iowa State
             University. During my studies, I took a Python for Automation class
             and a Satellite Image class. In the Python class, I learned the
             fundamentals of Python for data manipulation and became comfortable
@@ -137,12 +138,12 @@ const page = () => {
         </section>
         <section>
           <h2>Skills</h2>
-          <h3>Skills I've experienced</h3>
+          <h3>Skills I&apos;ve experienced</h3>
           <p>
             TS, JS, Spring, NestJS, NodeJS, ExpressJS, React, NextJS, Docker,
             AWS EC2/S3/Gateway/RDS
           </p>
-          <h3>Skills I'm interested in</h3>
+          <h3>Skills I&apos;m interested in</h3>
           <p>Data monitoring, ...</p>
         </section>
         <section>

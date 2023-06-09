@@ -1,13 +1,8 @@
-import Head from "next/head";
+import React from "react";
 import Header from "./components/organisms/Header";
 import "./globals.css";
-import meta from "./(meta)/globalMeta";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: any }) {
   return (
     <html lang="en" className="font-pretendard">
       <body>

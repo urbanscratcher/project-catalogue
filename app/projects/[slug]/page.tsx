@@ -1,18 +1,9 @@
-import NotionService from "@/services/notion-service";
+import { loadProject } from "@/lib/load";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 const page = async ({ params }: any) => {
   const { slug } = params;
-  const getPost = async () => {
-    const service = new NotionService();
-    const post = await service.findOneDevPost(slug);
-    if (!post) {
-      throw "Error";
-    }
-
-    return post;
-  };
-  const post = await getPost();
+  const post = await loadProject(slug);
 
   return (
     <>

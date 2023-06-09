@@ -1,3 +1,5 @@
+import { MENU } from "@/lib/constants";
+import { convertCase } from "@/lib/util";
 import Link from "next/link";
 import { BiGlobe } from "react-icons/bi";
 
@@ -10,22 +12,22 @@ const Navbar = () => {
         font-inconsolata"
         >
           <Link href="./about">
-            <li className="hover:text-gray-400">About</li>
+            <li className="hover:text-gray-400">{convertCase(MENU.ABOUT)}</li>
           </Link>
           <Link className="hover:text-gray-400" href="./projects">
-            <li>Projects</li>
+            <li>{convertCase(MENU.PROJECTS)}</li>
           </Link>
           <Link className="hover:text-gray-400" href="./devlogs">
-            <li>Devlogs</li>
+            <li>{convertCase(MENU.DEVLOGS)}</li>
           </Link>
           <Link className="hover:text-gray-400" href="./notes">
-            <li>Notes</li>
+            <li>{convertCase(MENU.NOTES)}</li>
           </Link>
           <Link className="hover:text-gray-400" href="./personal">
-            <li>Personal</li>
+            <li>{convertCase(MENU.PERSONAL)}</li>
           </Link>
           <Link className="hover:text-gray-400" href="./contact">
-            <li>Contact</li>
+            <li>{convertCase(MENU.CONTACT)}</li>
           </Link>
           <li className="cursor-pointer hover:text-gray-400">
             <BiGlobe />
