@@ -7,7 +7,7 @@ const Header = () => {
       <header
         className="
       flex justify-around items-center
-      m-3"
+      p-3"
       >
         <Logo />
         <Navbar />
