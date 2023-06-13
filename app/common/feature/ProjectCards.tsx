@@ -1,7 +1,7 @@
 import { ProjectData } from "@/@types/schema";
 import { MENU } from "@/lib/constants";
 import Link from "next/link";
-import ProjectCard from "../molecules/ProjectCard";
+import ProjectCard from "./ProjectCard";
 
 interface ProjectCardsProps {
   posts: ProjectData[];

@@ -1,7 +1,7 @@
 import { MENU } from "@/lib/constants";
 import { loadDevs } from "@/lib/load";
-import DevCards from "../components/organisms/DevCards";
-import Tags from "../components/molecules/Tags";
+import DevCards from "../common/feature/DevCards";
+import Tags from "../common/layout/Tags";
 
 const page = async () => {
   const posts = await loadDevs(MENU.NOTES);

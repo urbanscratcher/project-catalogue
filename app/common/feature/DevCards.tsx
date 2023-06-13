@@ -1,7 +1,7 @@
 import { DevData } from "@/@types/schema";
 import { MENU } from "@/lib/constants";
 import Link from "next/link";
-import DevCard from "../molecules/DevCard";
+import DevCard from "./DevCard";
 
 interface DevCardsProps {
   posts: DevData[];

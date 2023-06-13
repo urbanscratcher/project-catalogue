@@ -1,5 +1,5 @@
-import Logo from "../molecules/Logo";
-import Navbar from "../molecules/Navbar";
+import Logo from "./feature/Logo";
+import Navbar from "./Navbar";
 
 const Header = () => {
   return (

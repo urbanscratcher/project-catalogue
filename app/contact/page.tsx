@@ -5,7 +5,7 @@ import {
   BsPinterest as PinterestIcon,
   BsTwitter as TwitterIcon,
 } from "react-icons/bs";
-import Email from "../components/organisms/Email";
+import Email from "../common/feature/Email";
 
 const page = () => {
   return (

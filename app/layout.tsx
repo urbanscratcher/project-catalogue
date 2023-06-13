@@ -1,12 +1,15 @@
-import Toast from "./components/atoms/Toast";
-import Header from "./components/organisms/Header";
+import ClientOnly from "./common/ClientOnly";
+import CopyToaster from "./common/feature/CopyToaster";
+import Header from "./common/Header";
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: any }) {
   return (
     <html lang="en" className="font-pretendard">
       <body className="relative">
-        <Toast text={`E-mail Copied!`} />
+        <ClientOnly>
+          <CopyToaster />
+        </ClientOnly>
         <Header />
         {children}
       </body>

@@ -1,19 +1,19 @@
-import { DevData, ProjectData } from "@/@types/schema";
+import { ProjectData } from "@/@types/schema";
 import Image from "next/image";
-import Card from "../atoms/Card";
-import Tags from "./Tags";
+import Card from "../layout/Card";
+import Tags from "../layout/Tags";
 
-type DevCardProps = {
+type ProjectCardProps = {
   key?: string;
-  post: DevData;
+  post: ProjectData;
 };
 
-const DevCard = ({ post }: DevCardProps) => {
+const ProjectCard = ({ post }: ProjectCardProps) => {
   const dateObj: Date = new Date(post.date);
   const date = dateObj.toLocaleDateString("ko");
 
-  const tags = post?.tags;
   const techStacks = post?.techStack;
+  const roles = post?.role;
 
   return (
     <>
@@ -43,32 +43,34 @@ const DevCard = ({ post }: DevCardProps) => {
                   {date}
                 </h4>
               </span>
+
               {/* title */}
               <span className="block">
                 <h4 className="text-xl font-medium text-gray-900">
                   {post.title}
                 </h4>
               </span>
+
               {/* description */}
               <span className="block">
                 <h4 className="text-xs text-gray-600">{post.description}</h4>
               </span>
+
+              {/* role */}
+              {roles !== undefined && roles.length > 0 ? (
+                <div className="flex items-center">
+                  <span className="mr-2">Role</span>
+                  <Tags data={roles} />
+                </div>
+              ) : (
+                ""
+              )}
 
               {/* techStack */}
               {techStacks !== undefined && techStacks.length > 0 ? (
                 <div className="flex items-center">
                   <span className="mr-2">Tech Stack</span>
                   <Tags data={techStacks} />
-                </div>
-              ) : (
-                ""
-              )}
-
-              {/* tags */}
-              {tags !== undefined && tags?.length > 0 ? (
-                <div className="flex items-center">
-                  <span className="mr-2">Tags</span>
-                  <Tags data={tags} includeSharp />
                 </div>
               ) : (
                 ""
@@ -81,4 +83,4 @@ const DevCard = ({ post }: DevCardProps) => {
   );
 };
 
-export default DevCard;
+export default ProjectCard;

@@ -1,6 +1,7 @@
 import { loadProjects } from "@/lib/load";
-import Tags from "../components/molecules/Tags";
-import ProjectCards from "../components/organisms/ProjectCards";
+import ProjectCards from "../common/feature/ProjectCards";
+import RoleTags from "../common/feature/RoleTags";
+import TechStackTags from "../common/feature/TechStackTags";
 
 const page = async () => {
   const posts = await loadProjects();
@@ -26,10 +27,8 @@ const page = async () => {
 
   return (
     <main className="container mx-auto">
-      <p className="text-l my-2">Filtered by Role</p>
-      <Tags data={roles} />
-      <p className="text-l my-2">Filtered by Tech Stack</p>
-      <Tags data={techStacks} />
+      <RoleTags roles={roles} />
+      <TechStackTags techStack={techStacks} />
       <ProjectCards posts={posts} />
     </main>
   );

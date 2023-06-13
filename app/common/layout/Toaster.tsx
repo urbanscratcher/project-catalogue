@@ -1,28 +1,26 @@
 "use client";
 
-import { useToastStore } from "@/app/hooks/useToastStore";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BsCheckCircleFill as CheckIcon } from "react-icons/bs";
 
-interface ToastProps {
-  text: string;
+interface ToasterProps {
+  isShown: boolean;
+  onClose: () => void;
+  message: string;
 }
 
-const Toast = ({ text }: ToastProps) => {
-  const show = useToastStore((state) => state.show);
-  const removeToast = useToastStore((state) => state.removeToast);
-
+const Toaster = ({ isShown, onClose, message }: ToasterProps) => {
   useEffect(() => {
-    if (show) {
+    if (isShown) {
       const tick = setTimeout(() => {
-        removeToast();
+        onClose();
       }, 1000);
 
       return () => {
         return clearTimeout(tick);
       };
     }
-  }, [show, removeToast]);
+  }, [isShown, onClose]);
 
   return (
     <>
@@ -36,14 +34,14 @@ const Toast = ({ text }: ToastProps) => {
         absolute left-[50%]
         translate-x-[-50%]
         transition-all duration-200
-        ${show ? "top-[1%]" : "top-[-100%]"}
+        ${isShown ? "top-[1%]" : "top-[-100%]"}
         `}
       >
         <CheckIcon />
-        {text}
+        {message}
       </div>
     </>
   );
 };
 
-export default Toast;
+export default Toaster;
