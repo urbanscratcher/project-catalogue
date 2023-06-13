@@ -30,7 +30,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./@types",
-    "./node_modules/@types"
+    "./node_modules/@types",
+    "services/cors.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -27,8 +27,11 @@ const page = async () => {
 
   return (
     <main className="container mx-auto">
+      <p className="text-l my-2">Filtered by Role</p>
       <RoleTags roles={roles} />
+      <p className="text-l my-2">Filtered by Tech Stack</p>
       <TechStackTags techStack={techStacks} />
+
       <ProjectCards posts={posts} />
     </main>
   );

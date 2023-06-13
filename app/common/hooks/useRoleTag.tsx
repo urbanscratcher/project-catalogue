@@ -1,20 +1,28 @@
-import React from "react";
+import { Tag } from "@/@types/schema";
 import { create } from "zustand";
 
 interface RoleTagStore {
-  selectedRoles: any[];
-  onSelected: (item) => void;
-  onDeselected: (item) => void;
+  selectedRoles: Tag[];
+  onSelect: (item: Tag) => void;
+  onDeselect: (item: Tag) => void;
+  reset: () => void;
 }
 
-const useRoleTag = create((set) => ({
+const useRoleTag = create<RoleTagStore>((set) => ({
   selectedRoles: [],
-  onSelected: (item) => {
-    set((state) => ({
+  onSelect: (item: Tag) => {
+    set((state: RoleTagStore) => ({
       selectedRoles: [...state.selectedRoles, item],
     }));
   },
-  onDeselected: (state) => set(),
+  onDeselect: (item: Tag) => {
+    set((state: RoleTagStore) => ({
+      selectedRoles: state.selectedRoles.filter(
+        (n: Tag) => n.name !== item.name
+      ),
+    }));
+  },
+  reset: () => set({ selectedRoles: [] }),
 }));
 
 export default useRoleTag;

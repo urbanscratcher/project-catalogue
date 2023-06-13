@@ -1,11 +1,44 @@
-import React from "react";
-import Tags from "../layout/Tags";
+"use client";
 
-const RoleTags = ({ roles }) => {
+import React, { useEffect } from "react";
+import { Tag as TagType } from "@/@types/schema";
+import Tag from "../layout/Tag";
+import useRoleTag from "../hooks/useRoleTag";
+
+interface RoleTagsProps {
+  roles: TagType[];
+}
+
+const RoleTags = ({ roles }: RoleTagsProps) => {
+  const roleTag = useRoleTag();
+  const handleClick = (tag: TagType) => {
+    if (!roleTag.selectedRoles.some((e: TagType) => e.name === tag.name)) {
+      roleTag.onSelect(tag);
+    } else {
+      roleTag.onDeselect(tag);
+    }
+  };
+
   return (
     <>
-      <p className="text-l my-2">Filtered by Role</p>
-      <Tags data={roles} />
+      <span className="block space-x-2">
+        {roles.map((role) => (
+          <Tag
+            onClick={() => handleClick(role)}
+            key={role.id}
+            text={role.name}
+            includeSharp={false}
+            selected={
+              roleTag.selectedRoles.some(
+                (tag: TagType) => tag.name === role.name
+              )
+                ? true
+                : false
+            }
+            selectable={true}
+          />
+        ))}
+      </span>
     </>
   );
 };

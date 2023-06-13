@@ -5,6 +5,7 @@ import {
   PersonalPage,
   ProjectData,
   ProjectPage,
+  Tag,
 } from "@/@types/schema";
 import { Client } from "@notionhq/client";
 import {
@@ -23,6 +24,55 @@ export default class NotionService {
   constructor() {
     this.client = new Client({ auth: process.env.NOTION_ACCESS_TOKEN });
     this.n2m = new NotionToMarkdown({ notionClient: this.client });
+  }
+
+  async findProjectsByRole(roles: Tag[]): Promise<ProjectData[]> {
+    const roleFilters = roles.map((r) => {
+      return {
+        property: "Role",
+        multi_select: {
+          contain: r.name,
+        },
+      };
+    });
+
+    const andFilters = [
+      {
+        property: "Published",
+        checkbox: {
+          equals: true,
+        },
+      },
+      ...roleFilters,
+    ];
+
+    for (const i of roleFilters) {
+      console.log(i);
+    }
+
+    const response = await this.client.databases.query({
+      database_id: PROJECT_DB,
+      filter: {
+        and: [
+          {
+            property: "Published",
+            checkbox: {
+              equals: true,
+            },
+          },
+        ],
+      },
+      sorts: [
+        {
+          property: "Created",
+          direction: "descending",
+        },
+      ],
+    });
+
+    return response.results.map((res) => {
+      return this.convertToProjectPost(res);
+    });
   }
 
   async findPublishedProjectPosts(): Promise<ProjectData[]> {
