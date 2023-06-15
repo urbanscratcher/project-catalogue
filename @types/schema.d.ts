@@ -14,17 +14,27 @@ interface DefaultData {
   date: string;
 }
 
+// default pagination
+interface Pagination {
+  hasMore: boolean;
+  nextCursor: string;
+}
+
 // data
-export interface DevData extends DefaultData {
-  category: Tag;
+export interface ProjectData extends DefaultData {
   slug: string;
-  tags?: Tag[];
   role?: Tag[];
   techStack?: Tag[];
 }
 
-export interface ProjectData extends DefaultData {
+export interface PaginatedProjectData extends Pagination {
+  data: ProjectData[];
+}
+
+export interface DevData extends DefaultData {
+  category: Tag;
   slug: string;
+  tags?: Tag[];
   role?: Tag[];
   techStack?: Tag[];
 }

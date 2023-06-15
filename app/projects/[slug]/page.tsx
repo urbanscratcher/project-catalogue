@@ -14,6 +14,7 @@ const page = async ({ params }: any) => {
         <article className="prose mx-auto">
           <ReactMarkdown>{post.markdown}</ReactMarkdown>
         </article>
+        <p>Updated at {post.post.date}</p>
       </main>
     </>
   );

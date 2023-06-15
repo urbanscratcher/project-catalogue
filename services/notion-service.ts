@@ -1,11 +1,11 @@
 import {
   DevData,
   DevPage,
+  PaginatedProjectData,
   PersonalData,
   PersonalPage,
   ProjectData,
   ProjectPage,
-  Tag,
 } from "@/@types/schema";
 import { Client } from "@notionhq/client";
 import {
@@ -15,7 +15,13 @@ import {
 } from "@notionhq/client/build/src/api-endpoints";
 import { NotionToMarkdown } from "notion-to-md";
 import { MdBlock } from "notion-to-md/build/types";
-import { DEV_DB, PERSONAL_DB, PROJECT_DB } from "../lib/constants";
+import {
+  DEV_DB,
+  PAGE_LIMIT,
+  PERSONAL_DB,
+  PROJECT_DB,
+  PROXIED_URL,
+} from "../lib/constants";
 
 export default class NotionService {
   private client: Client;
@@ -26,79 +32,56 @@ export default class NotionService {
     this.n2m = new NotionToMarkdown({ notionClient: this.client });
   }
 
-  async findProjectsByRole(roles: Tag[]): Promise<ProjectData[]> {
-    const roleFilters = roles.map((r) => {
+  async findPublishedProjectPosts(): Promise<PaginatedProjectData> {
+    const query = {
+      database_id: PROJECT_DB,
+      page_size: PAGE_LIMIT,
+      filter: {
+        and: [
+          {
+            property: "Published",
+            checkbox: {
+              equals: true,
+            },
+          },
+        ],
+      },
+      sorts: [
+        {
+          property: "Created",
+          direction: "descending",
+        },
+      ],
+    };
+
+    const data = await fetch(`${PROXIED_URL}/databases/${PROJECT_DB}/query`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(query),
+    });
+
+    try {
+      const res = await data.json();
+      const result = res.results.map((res: any) =>
+        this.convertToProjectPost(res)
+      );
+
+      console.log(res);
+
       return {
-        property: "Role",
-        multi_select: {
-          contain: r.name,
-        },
+        hasMore: res.has_more,
+        nextCursor: res.next_cursor ?? "",
+        data: result,
       };
-    });
-
-    const andFilters = [
-      {
-        property: "Published",
-        checkbox: {
-          equals: true,
-        },
-      },
-      ...roleFilters,
-    ];
-
-    for (const i of roleFilters) {
-      console.log(i);
+    } catch {
+      return {
+        hasMore: false,
+        nextCursor: "",
+        data: [],
+      };
     }
-
-    const response = await this.client.databases.query({
-      database_id: PROJECT_DB,
-      filter: {
-        and: [
-          {
-            property: "Published",
-            checkbox: {
-              equals: true,
-            },
-          },
-        ],
-      },
-      sorts: [
-        {
-          property: "Created",
-          direction: "descending",
-        },
-      ],
-    });
-
-    return response.results.map((res) => {
-      return this.convertToProjectPost(res);
-    });
-  }
-
-  async findPublishedProjectPosts(): Promise<ProjectData[]> {
-    const response = await this.client.databases.query({
-      database_id: PROJECT_DB,
-      filter: {
-        and: [
-          {
-            property: "Published",
-            checkbox: {
-              equals: true,
-            },
-          },
-        ],
-      },
-      sorts: [
-        {
-          property: "Created",
-          direction: "descending",
-        },
-      ],
-    });
-
-    return response.results.map((res) => {
-      return this.convertToProjectPost(res);
-    });
   }
 
   async findOneProjectPost(slug: string): Promise<ProjectPage> {
@@ -115,7 +98,6 @@ export default class NotionService {
     });
 
     const page = this.getPage(response);
-    console.log(page);
 
     return {
       post: this.convertToProjectPost(page),
