@@ -1,6 +1,6 @@
-export const convertCase = (item: string) => {
-  return item.split("").reduce((acc: string, cv: string, ci: number) => {
-    const nv = ci === 0 ? cv.toUpperCase() : cv.toLowerCase();
-    return acc + nv;
+export const capitalize = (item: string) => {
+  return item.split("").reduce((acc: string, curVal: string, curIdx: number) => {
+    const newStr = curIdx === 0 ? curVal.toUpperCase() : curVal.toLowerCase();
+    return acc + newStr;
   }, "");
 };

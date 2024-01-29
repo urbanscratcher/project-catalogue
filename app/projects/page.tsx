@@ -1,14 +1,12 @@
-"use client";
-import { loadProjects } from "@/lib/load";
-import { use } from "react";
-import ProjectCards from "../common/feature/ProjectCards";
+import ProjectCards from "../common/hydration/ProjectCards";
+import Providers from "../common/utils/provider";
 
 const page = () => {
-  const posts = use(loadProjects());
-
   return (
-    <main id="main" className="container mx-auto">
-      <ProjectCards posts={posts.data} />
+    <main className="container mx-auto">
+      <Providers>
+        <ProjectCards posts={[]} />
+      </Providers>
     </main>
   );
 };

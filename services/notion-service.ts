@@ -9,7 +9,9 @@ import {
 } from "@/@types/schema";
 import { Client } from "@notionhq/client";
 import {
+  DatabaseObjectResponse,
   PageObjectResponse,
+  PartialDatabaseObjectResponse,
   PartialPageObjectResponse,
   QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints";
@@ -205,7 +207,11 @@ export default class NotionService {
 
   private getPage(
     response: QueryDatabaseResponse
-  ): PageObjectResponse | PartialPageObjectResponse {
+  ):
+    | PageObjectResponse
+    | PartialPageObjectResponse
+    | PartialDatabaseObjectResponse
+    | DatabaseObjectResponse {
     const result = response.results[0];
 
     const throwError = () => {
@@ -255,7 +261,7 @@ export default class NotionService {
     };
   }
 
-  private convertToProjectPost(page: any): ProjectData {
+  private convertToProjectPost = (page: any): ProjectData => {
     let cover = page.cover;
     cover =
       cover?.type == "file"
@@ -274,5 +280,5 @@ export default class NotionService {
       techStack: page.properties.TechStack.multi_select ?? [],
       date: page.properties.Updated.last_edited_time,
     };
-  }
+  };
 }

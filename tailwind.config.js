@@ -1,13 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: ["./app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       fontFamily: {
-        pretendard: ["Pretendard", ...fontFamily.sans],
-        inconsolata: ["'Inconsolata'", ...fontFamily.mono],
+        sans: ["Helvetica Neue", ...defaultTheme.fontFamily.sans],
+        mono: ["'Inconsolata'", ...defaultTheme.fontFamily.mono],
       },
     },
   },

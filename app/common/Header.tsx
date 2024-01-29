@@ -3,16 +3,13 @@ import Navbar from "./Navbar";
 
 const Header = () => {
   return (
-    <>
       <header
         className="
-      flex justify-around items-center
-      p-3"
+      flex justify-between items-center px-3"
       >
         <Logo />
         <Navbar />
       </header>
-    </>
   );
 };
 

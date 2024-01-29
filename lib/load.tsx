@@ -1,3 +1,4 @@
+import { PaginatedProjectData } from "@/@types/schema";
 import NotionService from "@/services/notion-service";
 import { cache } from "react";
 
@@ -10,10 +11,10 @@ export const loadDevs = cache(async (category: string) => {
   return await notionService.findPublishedDevPosts(category);
 });
 
-export const loadProjects = cache(async () => {
+export const loadProjects = async (): Promise<PaginatedProjectData> => {
   const notionService = new NotionService();
   return await notionService.findPublishedProjectPosts();
-});
+};
 
 export const loadProject = cache(async (slug: string) => {
   const notionService = new NotionService();

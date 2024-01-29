@@ -39,7 +39,7 @@ const DevCard = ({ post }: DevCardProps) => {
             <div className="flex flex-col gap-2">
               {/* date */}
               <span className="block">
-                <h4 className="text-xs font-medium text-gray-600 font-mono">
+                <h4 className="text-xs font-medium text-gray-600">
                   {date}
                 </h4>
               </span>

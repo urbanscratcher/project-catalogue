@@ -11,6 +11,29 @@ type ProjectCardProps = {
 const ProjectCard = ({ post }: ProjectCardProps) => {
   const dateObj: Date = new Date(post.date);
   const date = dateObj.toLocaleDateString("ko");
+  const techStacks = post?.techStack;
+  const roles = post?.role;
+  const cover = post?.cover;
+
+  return (
+    <div>
+      {/* cover */}
+      {post.cover !== "" && post.cover !== undefined && (
+        <Image
+          className="w-full object-cover"
+          src={post.cover!.url}
+          alt={post.title}
+          width={100}
+          height={0}
+        />
+      )}
+    </div>
+  );
+};
+
+const ProjectCard2 = ({ post }: ProjectCardProps) => {
+  const dateObj: Date = new Date(post.date);
+  const date = dateObj.toLocaleDateString("ko");
 
   const techStacks = post?.techStack;
   const roles = post?.role;
@@ -24,8 +47,10 @@ const ProjectCard = ({ post }: ProjectCardProps) => {
               <Image
                 className="h-64 w-full object-cover"
                 src={post.cover}
-                alt={"cover"}
-                sizes="660px"
+                alt={post.title}
+                sizes="(max-width: 768px) 100vw,
+                (max-width: 1200px) 50vw,
+                33vw"
                 width="0"
                 height="0"
               />
@@ -39,9 +64,7 @@ const ProjectCard = ({ post }: ProjectCardProps) => {
             <div className="flex flex-col gap-2">
               {/* date */}
               <span className="block">
-                <h4 className="text-xs font-medium text-gray-600 font-mono">
-                  {date}
-                </h4>
+                <h4 className="text-xs font-medium text-gray-600">{date}</h4>
               </span>
 
               {/* title */}

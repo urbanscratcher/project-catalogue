@@ -23,8 +23,8 @@ interface Pagination {
 // data
 export interface ProjectData extends DefaultData {
   slug: string;
-  role?: Tag[];
-  techStack?: Tag[];
+  role: Tag[];
+  techStack: Tag[];
 }
 
 export interface PaginatedProjectData extends Pagination {
@@ -34,9 +34,9 @@ export interface PaginatedProjectData extends Pagination {
 export interface DevData extends DefaultData {
   category: Tag;
   slug: string;
-  tags?: Tag[];
-  role?: Tag[];
-  techStack?: Tag[];
+  tags: Tag[];
+  role: Tag[];
+  techStack: Tag[];
 }
 
 export interface PersonalData extends DefaultData {}
