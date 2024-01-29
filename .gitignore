@@ -3,7 +3,7 @@
 
 ### dotenv ###
 .env
-/lib/constants.ts
+/lib
 
 ### macOS ###
 # General
