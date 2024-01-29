@@ -6,7 +6,7 @@ import "./globals.css";
 
 export default function RootLayout({ children }: { children: any }) {
   return (
-    <html lang="en" className="font-pretendard">
+    <html lang="en">
       <body className="relative">
         <ClientOnly>
           <CopyToaster />
