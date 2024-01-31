@@ -16,7 +16,7 @@ const TechStackTags = ({ techStack }: TechStackTagsProps) => {
     if (techStackTag.selectedTechStack.length > 0) {
       techStackTag.reset();
     }
-  }, []);
+  }, [techStackTag]);
 
   const handleClick = (i: TagType) => {
     if (

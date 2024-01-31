@@ -21,8 +21,8 @@ import {
   DEV_DB,
   PAGE_LIMIT,
   PERSONAL_DB,
-  PROJECT_DB,
   PROXIED_URL,
+  PROJECT_DB,
 } from "../lib/constants";
 
 export default class NotionService {

@@ -1,4 +1,4 @@
-import Providers from "./common/utils/provider";
+import Providers from "./common/utils/Providers";
 import ProjectCards from "./common/hydration/ProjectCards";
 import { Metadata } from "next";
 

@@ -1,8 +1,7 @@
-import { dehydrate } from "@tanstack/query-core";
-import { Hydrate } from "@tanstack/react-query";
+import { loadProjects } from "@/lib/load";
+import { Hydrate, dehydrate } from "@tanstack/react-query";
 import getQueryClient from "../utils/getQueryClient";
 import ProjectCards from "./ProjectCards";
-import { loadProjects } from "@/lib/load";
 
 // fetch data on the server
 // hydrate the state
@@ -18,6 +17,7 @@ async function getProjects() {
 export default async function Hydation() {
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery(["hydrate-projects"], getProjects);
+
   const dehydratedState = dehydrate(queryClient);
 
   return (

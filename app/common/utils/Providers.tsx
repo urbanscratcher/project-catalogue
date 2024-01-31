@@ -8,7 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 // This tells the server to skip rendering the custom provider component and render it only on the client-side
 function Providers({ children }: React.PropsWithChildren) {
   const [client] = React.useState(
-    new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })
+    new QueryClient({ defaultOptions: { queries: { staleTime: 60*1000 } } })
   );
 
   return (
