@@ -8,7 +8,7 @@ export type Tag = {
 // default data
 interface DefaultData {
   id: string;
-  cover?: string;
+  cover?: { url: string };
   title: string;
   description?: string;
   date: string;
