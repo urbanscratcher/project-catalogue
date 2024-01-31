@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 function Home() {
   return (
-    <Providers>
-      <main className="container mx-auto">
+    <main className="container mx-auto">
+      <Providers>
         <ProjectCards posts={[]} />
-      </main>
-    </Providers>
+      </Providers>
+    </main>
   );
 }
 
