@@ -1,9 +1,9 @@
 "use client";
 
 import { Tag as TagType } from "@/@types/schema";
+import { useEffect } from "react";
 import useTechStackTag from "../hooks/useTechStackTag";
 import Tag from "../layout/Tag";
-import { useEffect } from "react";
 
 interface TechStackTagsProps {
   techStack: TagType[];

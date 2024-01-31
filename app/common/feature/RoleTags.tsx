@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
 import { Tag as TagType } from "@/@types/schema";
-import Tag from "../layout/Tag";
 import useRoleTag from "../hooks/useRoleTag";
+import Tag from "../layout/Tag";
 
 interface RoleTagsProps {
   roles: TagType[];

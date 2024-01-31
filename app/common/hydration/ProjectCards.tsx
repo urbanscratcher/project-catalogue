@@ -5,7 +5,6 @@ import { MENU } from "@/lib/constants";
 import { loadProjects } from "@/lib/load";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import ProjectCard from "../feature/ProjectCard";
 
 // When this component mounts, it can retrieve the dehydrated query cache if available but will refetch the query on the client if it has become stale since the time it was rendered on the server.
 
@@ -67,7 +66,7 @@ const ProjectCards = ({ posts }: ProjectCardsProps) => {
                 <p className="font-bold text-2xl">
                   {String.fromCharCode(64 + i + 1)}.
                 </p>
-                <ProjectCard key={post.id} post={post} />
+                {/* <ProjectCard key={post.id} post={post} /> */}
               </Link>
             ))}
           </>
