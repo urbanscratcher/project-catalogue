@@ -1,5 +1,5 @@
 import ProjectCards from "../common/hydration/ProjectCards";
-import Providers from "../common/utils/Providers";
+import Providers from "../common/utils/provider";
 
 const page = () => {
   return (

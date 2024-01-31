@@ -1,6 +1,6 @@
-import Providers from "./common/utils/Providers";
 import ProjectCards from "./common/hydration/ProjectCards";
 import { Metadata } from "next";
+import Providers from "./common/utils/Providers";
 
 export const metadata: Metadata = {
   title: "The Catalogue",
@@ -9,13 +9,11 @@ export const metadata: Metadata = {
 
 function Home() {
   return (
-    <>
+    <Providers>
       <main className="container mx-auto">
-        <Providers>
-          <ProjectCards posts={[]} />
-        </Providers>
+        <ProjectCards posts={[]} />
       </main>
-    </>
+    </Providers>
   );
 }
 
